@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>אלגברה ליניארית 2 (20229)</title>
+    <meta name="description" content="פורטל הלמידה, הסיכומים ומאגרי הבחינות של הקורס אלגברה לינארית 2 (20229) באוניברסיטה הפתוחה: מכפלה פנימית, העתקות צמודות, לכסון אוניטרי, תבניות בילינאריות, קיילי-המילטון, פירוק פרימרי וצורת ז'ורדן.">
+    <meta name="keywords" content="אלגברה ליניארית 2, לינארית 2 20229, האוניברסיטה הפתוחה, מכפלה פנימית, לכסון אוניטרי, קיילי המילטון, צורת ז'ורדן, מבחנים פתורים">
+    <link rel="canonical" href="https://all-the-courses.pages.dev/">
+
+    <!-- Google Fonts: Heebo, Assistant, JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700;800&family=Heebo:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        calmBg: '#f8fafc',
+                        textMain: '#0f172a',
+                        accentRose: '#e11d48',
+                        accentPink: '#ec4899',
+                        neonPurple: '#8b5cf6',
+                        neonBlue: '#2563eb'
+                    },
+                    fontFamily: {
+                        sans: ['Heebo', 'Assistant', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom Glassmorphism & Rainbow Spin Styles -->
+    <style>
+        body {
+            background-color: #f8fafc;
+            background-image:
+                radial-gradient(#cbd5e1 1px, transparent 1px),
+                linear-gradient(135deg, #f8fafc 0%, #fff1f2 40%, #fdf2f8 100%);
+            background-size: 32px 32px, cover;
+            background-attachment: fixed;
+            font-family: 'Heebo', 'Assistant', sans-serif;
+            color: #1e293b;
+            min-height: 100vh;
+        }
+
+        /* Silver Waves Animation per Skill */
+        @keyframes silver-waves {
+            0% { background-position: 200% center; }
+            100% { background-position: -200% center; }
+        }
+        .silver-waves-bg {
+            background: linear-gradient(105deg,
+                transparent 20%, rgba(255, 255, 255, 0.45) 25%, transparent 30%,
+                rgba(255, 255, 255, 0.85) 45%, rgba(255, 255, 255, 0.45) 50%,
+                transparent 55%, rgba(255, 255, 255, 0.35) 70%, transparent 75%);
+            background-size: 200% 100%;
+            animation: silver-waves 3s linear infinite;
+        }
+
+        /* Spinning Rainbow Border */
+        @keyframes spin-rainbow {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .rainbow-spin-bg {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            padding: 3px;
+            background: conic-gradient(from 0deg, #ff0000, #ff8000, #ffff00, #00ff00, #0000ff, #8000ff, #ff0000);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            animation: spin-rainbow 4s linear infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes blob {
+            0% { transform: translate(0px, 0px) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+            100% { transform: translate(0px, 0px) scale(1); }
+        }
+        .animate-blob {
+            animation: blob 7s infinite;
+        }
+    </style>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23e11d48'%3E%3Cpath d='M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm6 12H6v-1.4c0-2 4-3.1 6-3.1s6 1.1 6 3.1V18z'/%3E%3C/svg%3E">
+</head>
+
+<body class="relative overflow-x-hidden flex flex-col min-h-screen">
+
+    <!-- Ambient Glowing Blobs -->
+    <div class="absolute top-0 right-[-10%] w-96 h-96 bg-rose-200/30 rounded-full filter blur-[100px] animate-blob pointer-events-none z-0"></div>
+    <div class="absolute bottom-[20%] left-[-10%] w-80 h-80 bg-pink-200/25 rounded-full filter blur-[100px] animate-blob pointer-events-none z-0" style="animation-delay: 2s;"></div>
+
+    <!-- ============================================================= -->
+    <!-- כפתור "לקורסים נוספים" (Spinning Rainbow + Silver Waves) -->
+    <!-- ============================================================= -->
+    <a href="https://all-the-courses.pages.dev/" class="fixed top-3 left-3 sm:top-5 sm:left-5 z-[70] group block bg-transparent rounded-full p-[3px] transition-all duration-500 hover:shadow-2xl hover:shadow-rose-400/40 hover:-translate-y-1 hover:scale-105 w-24 h-24 sm:w-28 sm:h-28 xl:w-32 xl:h-32 overflow-hidden cursor-pointer" title="חזרה למאגר כל הקורסים">
+        <!-- Spinning Rainbow Border -->
+        <div class="rainbow-spin-bg"></div>
+
+        <!-- Inner Glass Container -->
+        <div class="bg-white/80 backdrop-blur-xl rounded-full w-full h-full relative z-10 flex flex-col items-center justify-center border border-white/90 hover:bg-white/95 transition-all duration-500 shadow-[0_8px_32px_rgba(225,29,72,0.15)] text-center p-1 sm:p-2 overflow-hidden">
+            <!-- Silver Waves -->
+            <div class="absolute inset-0 silver-waves-bg pointer-events-none z-0 opacity-80"></div>
+            
+            <!-- Icon -->
+            <div class="w-8 h-8 sm:w-10 sm:h-10 mb-0.5 sm:mb-1 rounded-full bg-gradient-to-tr from-rose-500 to-pink-500 flex items-center justify-center text-white shadow-md shadow-rose-300 group-hover:scale-110 transition-transform duration-300 relative z-20">
+                <i data-lucide="library" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+            </div>
+            
+            <!-- Text -->
+            <span class="text-[10px] sm:text-xs font-bold text-slate-800 group-hover:text-rose-700 transition-colors leading-tight relative z-20">לקורסים<br>נוספים</span>
+        </div>
+    </a>
+
+    <!-- Top Navigation Header -->
+    <header class="sticky top-0 z-40 bg-white/70 backdrop-blur-md border-b border-slate-200/60 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3 pr-24 sm:pr-0">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-rose-500 to-pink-600 text-white flex items-center justify-center font-black text-lg shadow-md shadow-rose-200">
+                    <i class="fa-solid fa-shapes text-base"></i>
+                </div>
+                <div>
+                    <h1 class="text-base sm:text-lg font-black text-slate-900 leading-tight">אלגברה לינארית 2</h1>
+                    <p class="text-xs text-slate-500 font-semibold">קורס 20229 • האוניברסיטה הפתוחה</p>
+                </div>
+            </div>
+
+            <!-- Quick Action Links -->
+            <div class="flex items-center gap-2">
+                <a href="exams.html" class="px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold text-rose-700 bg-rose-50 hover:bg-rose-100 transition-colors flex items-center gap-1.5 border border-rose-200/60 shadow-sm">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                    <span>מאגר בחינות</span>
+                </a>
+                <a href="game.html" class="px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold text-pink-700 bg-pink-50 hover:bg-pink-100 transition-colors flex items-center gap-1.5 border border-pink-200/60 shadow-sm">
+                    <i class="fa-solid fa-gamepad"></i>
+                    <span>משחק תרגול</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 relative z-10">
+        
+        <!-- Hero Section -->
+        <div class="text-center max-w-3xl mx-auto mb-10">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-rose-50 border border-rose-200 text-rose-700 text-xs font-bold mb-3 shadow-sm">
+                <i class="fa-solid fa-book-open"></i> פורטל סיכומים ומאגרי בחינות פתורים
+            </div>
+            <h2 class="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight mb-3">
+                אינדקס יחידות הלימוד והמשאבים
+            </h2>
+            <p class="text-slate-600 text-sm sm:text-base leading-relaxed font-medium">
+                ריכוז מלא של כל 11 יחידות הקורס באלגברה לינארית 2, כולל הוכחות מפורטות, מעקבי העתקות צמודות, תבניות בילינאריות, וצורות ז'ורדן.
+            </p>
+
+            <!-- Quick Stats -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-8">
+                <div class="bg-white/80 backdrop-blur-md p-3.5 rounded-2xl border border-white/60 shadow-sm text-center">
+                    <div class="text-2xl font-black text-rose-600">11</div>
+                    <div class="text-xs text-slate-500 font-bold">יחידות לימוד מלאות</div>
+                </div>
+                <div class="bg-white/80 backdrop-blur-md p-3.5 rounded-2xl border border-white/60 shadow-sm text-center">
+                    <div class="text-2xl font-black text-rose-600">100%</div>
+                    <div class="text-xs text-slate-500 font-bold">כיסוי משפטים והוכחות</div>
+                </div>
+                <div class="bg-white/80 backdrop-blur-md p-3.5 rounded-2xl border border-white/60 shadow-sm text-center">
+                    <div class="text-2xl font-black text-rose-600">3 שכבות</div>
+                    <div class="text-xs text-slate-500 font-bold">פתרונות בחינות מדורגים</div>
+                </div>
+                <div class="bg-white/80 backdrop-blur-md p-3.5 rounded-2xl border border-white/60 shadow-sm text-center">
+                    <div class="text-2xl font-black text-rose-600">אינטראקטיבי</div>
+                    <div class="text-xs text-slate-500 font-bold">סימולציות ומשחק חווייתי</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chapters Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+
+            <!-- פרק 1 -->
+            <a href="2_20229_1.html" class="group bg-white/70 backdrop-blur-md hover:bg-white border border-white/80 hover:border-rose-300 rounded-2xl p-5 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 block text-right">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="w-8 h-8 rounded-xl bg-rose-100 text-rose-700 font-black text-xs flex items-center justify-center">1</span>
+                    <i class="fa-solid fa-arrow-left text-xs text-slate-300 group-hover:text-rose-600 transform group-hover:-translate-x-1 transition-all"></i>
+                </div>
+                <h3 class="text-base font-black text-slate-800 group-hover:text-rose-600 transition-colors mb-1">
+                    המכפלה הפנימית
+                </h3>
+                <p class="text-xs text-slate-500 leading-relaxed font-medium">
+                    מרחבי מכפלה פנימית, אי-שוויון קושי-שוורץ, נורמה, קבוצות אורתוגונליות ותהליך גרם-שמידט.
+                </p>
+            </a>
+
+            <!-- פרק 2 -->
+            <a href="2_20229_2.html" class="group bg-white/70 backdrop-blur-md hover:bg-white border border-white/80 hover:border-rose-300 rounded-2xl p-5 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 block text-right">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="w-8 h-8 rounded-xl bg-rose-100 text-rose-700 font-black text-xs flex items-center justify-center">2</span>
+                    <i class="fa-solid fa-arrow-left text-xs text-slate-300 group-hover:text-rose-600 transform group-hover:-translate-x-1 transition-all"></i>
+                </div>
+                <h3 class="text-base font-black text-slate-800 group-hover:text-rose-600 transition-colors mb-1">
+                    העתקות במרחבי מכפלה פנימית
+                </h3>
+                <p class="text-xs text-slate-500 leading-relaxed font-medium">
+                    העתקות צמודות, מטריצות צמודות, העתקות יוניטריות, איזומטריות ואופרטורים נורמליים.
+                </p>
+            </a>
+
+            <!-- פרק 3 -->
+            <a href="2_20229_3.html" class="group bg-white/70 backdrop-blur-md hover:bg-white border border-white/80 hover:border-rose-300 rounded-2xl p-5 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 block text-right">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="w-8 h-8 rounded-xl bg-rose-100 text-rose-700 font-black text-xs flex items-center justify-center">3</span>
+                    <i class="fa-solid fa-arrow-left text-xs text-slate-300 group-hover:text-rose-600 transform group-hover:-translate-x-1 transition-all"></i>
+                </div>
+                <h3 class="text-base font-black text-slate-800 group-hover:text-rose-600 transition-colors mb-1">
+                    לכסון אוניטרי ואורתוגונלי
+                </h3>
+                <p class="text-xs text-slate-500 leading-relaxed font-medium">
+                    המשפט הספקטרלי לאופרטורים נורמליים, לכסון אוניטרי של מטריצות הרמיטיות וממשיות סימטריות.
+                </p>
+            </a>
+
+            <!-- פרק 4 -->
+            <a href="2_20229_4.html" class="group bg-white/70 backdrop-blur-md hover:bg-white border border-white/80 hover:border-rose-300 rounded-2xl p-5 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 block text-right">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="w-8 h-8 rounded-xl bg-rose-100 text-rose-700 font-black text-xs flex items-center justify-center">4</span>
+                    <i class="fa-solid fa-arrow-left text-xs text-slate-300 group-hover:text-rose-600 transform group-hover:-translate-x-1 transition-all"></i>
+                </div>
+                <h3 class="text-base font-black text-slate-800 group-hover:text-rose-600 transition-colors mb-1">
+                    תבניות בילינאריות וריבועיות
+                </h3>
+                <p class="text-xs text-slate-500 leading-relaxed font-medium">
+                    מטריצה מייצגת של תבנית, חפיפת מטריצות, לכסון תבניות בילינאריות סימטריות ואלגוריתם הלכסון.
+                </p>
+            </a>
+
+            <!-- פרק 5 -->
+            <a href="2_20229_5.html" class="group bg-white/70 backdrop-blur-md hover:bg-white border border-white/80 hover:border-rose-300 rounded-2xl p-5 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 block text-right">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="w-8 h-8 rounded-xl bg-rose-100 text-rose-700 font-black text-xs flex items-center justify-center">5</span>
+                    <i class="fa-solid fa-arrow-left text-xs text-slate-300 group-hover:text-rose-600 transform group-hover:-translate-x-1 transition-all"></i>
+                </div>
+                <h3 class="text-base font-black text-slate-800 group-hover:text-rose-600 transition-colors mb-1">
+                    משפט קיילי-המילטון
+                </h3>
+                <p class="text-xs text-slate-500 leading-relaxed font-medium">
+                    הפולינום האופייני, משפט קיילי-המילטון, הפולינום המינימלי וקשר ללכסון מטריצות.
+                </p>
+            </a>
+
+            <!-- פרק 6 -->
+            <a href="2_20229_6.html" class="group bg-white/70 backdrop-blur-md hover:bg-white border border-white/80 hover:border-rose-300 rounded-2xl p-5 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 block text-right">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="w-8 h-8 rounded-xl bg-rose-100 text-rose-700 font-black text-xs flex items-center justify-center">6</span>
+                    <i class="fa-solid fa-arrow-left text-xs text-slate-300 group-hover:text-rose-600 transform group-hover:-translate-x-1 transition-all"></i>
+                </div>
+                <h3 class="text-base font-black text-slate-800 group-hover:text-rose-600 transition-colors mb-1">
+                    תבניות ריבועיות ממשיות
+                </h3>
+                <p class="text-xs text-slate-500 leading-relaxed font-medium">
+                    חוק ההתמדה של סילבסטר, סיווג תבניות מוגדרות חיובית ושלילית, קריטריון סילבסטר ומינורים מובילים.
+                </p>
+            </a>
+
+            <!-- פרק 7 -->
+            <a href="2_20229_7.html" class="group bg-white/70 backdrop-blur-md hover:bg-white border border-white/80 hover:border-rose-300 rounded-2xl p-5 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 block text-right">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="w-8 h-8 rounded-xl bg-rose-100 text-rose-700 font-black text-xs flex items-center justify-center">7</span>
+                    <i class="fa-solid fa-arrow-left text-xs text-slate-300 group-hover:text-rose-600 transform group-hover:-translate-x-1 transition-all"></i>
+                </div>
+                <h3 class="text-base font-black text-slate-800 group-hover:text-rose-600 transition-colors mb-1">
+                    עוד על פולינומים
+                </h3>
+                <p class="text-xs text-slate-500 leading-relaxed font-medium">
+                    חלוקה עם שארית, מחלק משותף מקסימלי (GCD), פולינומים אי-פריקים ופירוק לגורמים.
+                </p>
+            </a>
+
+            <!-- פרק 8 -->
+            <a href="2_20229_8.html" class="group bg-white/70 backdrop-blur-md hover:bg-white border border-white/80 hover:border-rose-300 rounded-2xl p-5 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 block text-right">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="w-8 h-8 rounded-xl bg-rose-100 text-rose-700 font-black text-xs flex items-center justify-center">8</span>
+                    <i class="fa-solid fa-arrow-left text-xs text-slate-300 group-hover:text-rose-600 transform group-hover:-translate-x-1 transition-all"></i>
+                </div>
+                <h3 class="text-base font-black text-slate-800 group-hover:text-rose-600 transition-colors mb-1">
+                    שילוש מטריצות
+                </h3>
+                <p class="text-xs text-slate-500 leading-relaxed font-medium">
+                    תתי-מרחבים שמורים (T-invariant), שילוש מטריצה מעל C, משפט שור (Schur Decomposition).
+                </p>
+            </a>
+
+            <!-- פרק 9 -->
+            <a href="2_20229_9.html" class="group bg-white/70 backdrop-blur-md hover:bg-white border border-white/80 hover:border-rose-300 rounded-2xl p-5 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 block text-right">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="w-8 h-8 rounded-xl bg-rose-100 text-rose-700 font-black text-xs flex items-center justify-center">9</span>
+                    <i class="fa-solid fa-arrow-left text-xs text-slate-300 group-hover:text-rose-600 transform group-hover:-translate-x-1 transition-all"></i>
+                </div>
+                <h3 class="text-base font-black text-slate-800 group-hover:text-rose-600 transition-colors mb-1">
+                    הפולינום המינימלי
+                </h3>
+                <p class="text-xs text-slate-500 leading-relaxed font-medium">
+                    תכונות הפולינום המינימלי, קריטריון הלכסונות לפי פירוק לגורמים לינאריים שונים, וחישוב מעשי.
+                </p>
+            </a>
+
+            <!-- פרק 10 -->
+            <a href="2_20229_10.html" class="group bg-white/70 backdrop-blur-md hover:bg-white border border-white/80 hover:border-rose-300 rounded-2xl p-5 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 block text-right">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="w-8 h-8 rounded-xl bg-rose-100 text-rose-700 font-black text-xs flex items-center justify-center">10</span>
+                    <i class="fa-solid fa-arrow-left text-xs text-slate-300 group-hover:text-rose-600 transform group-hover:-translate-x-1 transition-all"></i>
+                </div>
+                <h3 class="text-base font-black text-slate-800 group-hover:text-rose-600 transition-colors mb-1">
+                    הפירוק הפרימרי
+                </h3>
+                <p class="text-xs text-slate-500 leading-relaxed font-medium">
+                    פירוק המרחב לסכום ישר של תתי-מרחבים שמורים, משפט הפירוק הפרימרי והשלכה על מבנה ההעתקה.
+                </p>
+            </a>
+
+            <!-- פרק 11 -->
+            <a href="2_20229_11.html" class="group bg-white/70 backdrop-blur-md hover:bg-white border border-white/80 hover:border-rose-300 rounded-2xl p-5 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 block text-right">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="w-8 h-8 rounded-xl bg-rose-100 text-rose-700 font-black text-xs flex items-center justify-center">11</span>
+                    <i class="fa-solid fa-arrow-left text-xs text-slate-300 group-hover:text-rose-600 transform group-hover:-translate-x-1 transition-all"></i>
+                </div>
+                <h3 class="text-base font-black text-slate-800 group-hover:text-rose-600 transition-colors mb-1">
+                    צורות ז׳ורדן (Jordan)
+                </h3>
+                <p class="text-xs text-slate-500 leading-relaxed font-medium">
+                    בלוקי ז'ורדן, מרחבים עצמיים מוכללים, שרשראות וקטורים, מציאת צורת ז'ורדן ומטריצה מדמית P.
+                </p>
+            </a>
+
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white/40 backdrop-blur-md border-t border-slate-200/60 py-6 text-center text-xs text-slate-500 relative z-10 mt-auto">
+        <p class="font-bold text-slate-700">© מאגר הקורסים הפתוח למדעי המחשב והמתמטיקה — יאיר קורצמן</p>
+        <p class="mt-1">האתר נועד לסייע לתלמידי האוניברסיטה הפתוחה. זכויות החומר המקורי שייכות לאוניברסיטה הפתוחה.</p>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
